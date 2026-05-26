@@ -10,16 +10,16 @@ steps:
 
   # Step 3: Push the Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-west1-docker.pkg.dev/
-/my-repository/hello-cloudbuild-dev:v1.0']
+    args: ['push', 'us-west1-docker.pkg.dev/qwiklabs-gcp-03-df818d366812/my-repository/hello-cloudbuild-dev:v1.0']
 
-  # Step 4: Apply the production deployment YAML file to the production namespa
-ce
+  # Step 4: Apply the deployment YAML
   - name: 'gcr.io/cloud-builders/kubectl'
     id: 'Deploy'
     args: ['-n', 'dev', 'apply', '-f', 'dev/deployment.yaml']
     env:
-    - 'CLOUDSDK_COMPUTE_REGION=us-west1-b'
+    - 'CLOUDSDK_COMPUTE_ZONE=us-west1-b'
     - 'CLOUDSDK_CONTAINER_CLUSTER=hello-cluster'
+
 options:
- logging: CLOUD_LOGGING_ONLY
+  logging: CLOUD_LOGGING_ONLY
+
